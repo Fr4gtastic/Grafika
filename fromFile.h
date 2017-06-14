@@ -3,27 +3,27 @@
 #include <fstream>
 #include <vector>
 
-std::vector<std::vector<double>> fromFile(std::string path)
+void fromFile(std::ifstream & path, std::vector<std::vector<double>> & dataArray, std::ofstream & test1)
 {
-	std::fstream dataFile(path, std::ios_base::in);
+	
 
-	// Wektor wektorów, przechowuj¹cy dane z pliku, sposób wype³nienia opisany ni¿ej
-	std::vector<std::vector<double>> dataArray;
+	// Wektor wektorÃ³w, przechowujÄ…cy dane z pliku, sposÃ³b wypeÅ‚nienia opisany niÅ¼ej
+	//std::vector<std::vector<double>> dataArray;
 	dataArray.resize(4);
-	// Zmienna pomocnicza u¿ywana w zapisywaniu danych
+	// Zmienna pomocnicza uÅ¼ywana w zapisywaniu danych
 	int counter = 0;
-	// Zmienna przechowuj¹ca przepisywane dane
+	// Zmienna przechowujÄ…ca przepisywane dane
 	double a;
 
 	while (dataFile >> a)
 	{
-		// Zype³nianie wektorów danych na zasadzie: wektor 0: wartoœci x, wektor 1: wartoœci y, wektor 2: wartoœci z, wektor 3: wartoœci f(x, y, z)
+		// ZypeÅ‚nianie wektorÃ³w danych na zasadzie: wektor 0: wartoÅ›ci x, wektor 1: wartoÅ›ci y, wektor 2: wartoÅ›ci z, wektor 3: wartoÅ›ci f(x, y, z)
 		dataArray[counter % 4].push_back(a);
 		counter++;
 	}
 
 	getchar();
 
-	// Zwraca wektor wektorów dataArray, jeœli bêdzie trzeba (np. dataArray bêdzie polem jakiejœ klasy), mo¿na przerobiæ na void metodê klasy
+	// Zwraca wektor wektorÃ³w dataArray, jeÅ›li bÄ™dzie trzeba (np. dataArray bÄ™dzie polem jakiejÅ› klasy), moÅ¼na przerobiÄ‡ na void metodÄ™ klasy
 	return dataArray;
 }
