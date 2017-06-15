@@ -215,18 +215,33 @@ void GrafikaProjectDialog::Draw( std::vector<std::vector<double> > & d,int N)
     wxClientDC dc(Panel); ///// w ramach testu
 
 
-    double tmp,min,max;
-    min = max = d[3][0];
-    for(float i=0;i<=10;i+=1)
-        for(float j=0;j<=10;j+=1)
-        {
-            tmp=Shepard(N,d,i,j, Slider->GetValue()/10, os1, os2, os3);
-            if(tmp<min)
-                min=tmp;
-            else if(tmp>max)
-                max=tmp;
-        }
-    unsigned int R,G,B;
+    double tmp,min1,max1;
+    min1 = max1 = d[3][0];
+    for(int i=1; i<d[3].size();i++)
+    {
+        max1=std::max(max1, d[3][i]);
+        min1=std::min(min1, d[3][i]);
+    }
+    max1-=max1*0.03;//pierwiastek z dwóch
+    min1+=min1*0.03;
+//    for(int k=0;k<N;k++)
+//    {
+//        if(d[os3][k]==(Slider->GetValue()*9/100) && d[os1][k]==0 && d[os2][k]==0)
+//        {
+//            min = max = d[3][k];
+//            break;
+//        }
+//    }
+//    for(float i=0;i<=10;i+=1)
+//        for(float j=0;j<=10;j+=1)
+//        {
+//            tmp=Shepard(N,d,i,j, Slider->GetValue()/10, os1, os2, os3);
+//            if(tmp<min1)
+//                min1=tmp;
+//            else if(tmp>max1)
+//                max1=tmp;
+//        }
+    int R,G,B;
     double value;
 
     for(int i=0;i<=400;++i)
@@ -235,9 +250,9 @@ void GrafikaProjectDialog::Draw( std::vector<std::vector<double> > & d,int N)
             {
                 value = Shepard(N,d,i*9/400.,j*9/400., Slider->GetValue()/10, os1, os2, os3);
 
-                    R=255-((value-min)/(max-min))*255;
+                    R=255-((value-min1)/(max1-min1))*255;
                     G=0;
-                    B=((value-min)/(max-min))*255;
+                    B=((value-min1)/(max1-min1))*255;
 
                 if (R < 0) R = 0;
                 if (R > 255) R = 255;
